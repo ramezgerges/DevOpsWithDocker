@@ -1,0 +1,21 @@
+Alpine 15.7MB vs Ubuntu 83MB
+
+❯ sudo docker images
+REPOSITORY                          TAG       IMAGE ID       CREATED         SIZE
+devopsdockeruh/simple-web-service   ubuntu    4e3362e907d5   13 months ago   83MB
+devopsdockeruh/simple-web-service   alpine    fd312adc88e0   13 months ago   15.7MB
+
+❯ sudo docker run -it -d --rm devopsdockeruh/simple-web-service:alpine
+38f2aecc006b76eb6dec8142134d4f1089d09756d3b10ab5e51e4aef85d5c37f
+
+❯ sudo docker exec 38f tail -f ./text.log
+2022-05-07 19:15:14 +0000 UTC
+2022-05-07 19:15:16 +0000 UTC
+2022-05-07 19:15:18 +0000 UTC
+2022-05-07 19:15:20 +0000 UTC
+2022-05-07 19:15:22 +0000 UTC
+Secret message is: 'You can find the source code here: https://github.com/docker-hy'
+2022-05-07 19:15:24 +0000 UTC
+2022-05-07 19:15:26 +0000 UTC
+^C
+

@@ -1,0 +1,54 @@
+❯ sudo docker build . -t example-backend
+Sending build context to Docker daemon  46.08kB
+Step 1/11 : FROM ubuntu:18.04
+ ---> c6ad7e71ba7d
+Step 2/11 : EXPOSE 8080
+ ---> Using cache
+ ---> 5c6cb5e35c66
+Step 3/11 : WORKDIR /usr/src/app
+ ---> Using cache
+ ---> 30d7b81bdb00
+Step 4/11 : RUN apt-get update && apt-get install wget -y
+ ---> Using cache
+ ---> 72be42ad4fbd
+Step 5/11 : RUN wget https://go.dev/dl/go1.18.1.linux-amd64.tar.gz
+ ---> Using cache
+ ---> 862e79dba991
+Step 6/11 : RUN rm -rf /usr/local/go && tar -C /usr/local -xzf go1.18.1.linux-amd64.tar.gz
+ ---> Using cache
+ ---> 096ece0bcbe8
+Step 7/11 : ENV PATH=$PATH:/usr/local/go/bin
+ ---> Using cache
+ ---> a603fce1edc3
+Step 8/11 : RUN bash $HOME/.profile
+ ---> Using cache
+ ---> ee4f16b54c8c
+Step 9/11 : COPY ./example-backend /usr/src/app
+ ---> Using cache
+ ---> 0281a567693b
+Step 10/11 : RUN go build
+ ---> Using cache
+ ---> 1d2d6dc52d11
+Step 11/11 : ENTRYPOINT ./server
+ ---> Running in d9e14b7ec0c3
+Removing intermediate container d9e14b7ec0c3
+ ---> 56f5ef9822d4
+Successfully built 56f5ef9822d4
+Successfully tagged example-backend:latest
+
+❯ sudo docker run -it --rm -p 8080:8080 example-backend
+[Ex 2.4+] REDIS_HOST env was not passed so redis connection is not initialized
+[Ex 2.6+] POSTGRES_HOST env was not passed so postgres connection is not initialized
+[GIN-debug] [WARNING] Creating an Engine instance with the Logger and Recovery middleware already attached.
+
+[GIN-debug] [WARNING] Running in "debug" mode. Switch to "release" mode in production.
+ - using env:   export GIN_MODE=release
+ - using code:  gin.SetMode(gin.ReleaseMode)
+
+[GIN-debug] GET    /ping                     --> server/router.pingpong (4 handlers)
+[GIN-debug] GET    /messages                 --> server/controller.GetMessages (4 handlers)
+[GIN-debug] POST   /messages                 --> server/controller.CreateMessage (4 handlers)
+[GIN-debug] Listening and serving HTTP on :8080
+[GIN] 2022/05/08 - 10:30:08 | 200 |      47.143µs |      172.17.0.1 | GET      "/ping"
+[GIN] 2022/05/08 - 10:30:09 | 404 |       9.987µs |      172.17.0.1 | GET      "/favicon.ico"
+

@@ -1,0 +1,19 @@
+❯ sudo docker run -it --rm ubuntu sh -c '(apt-get -qq update && apt-get -qq install curl) > /dev/null; echo "Input website:"; read website; echo "Searching.."; sleep 1; curl http://$website;'
+debconf: delaying package configuration, since apt-utils is not installed
+Input website:
+helsinki.fi
+Searching..
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 2.0//EN">
+<html><head>
+<title>301 Moved Permanently</title>
+</head><body>
+<h1>Moved Permanently</h1>
+<p>The document has moved <a href="https://www.helsinki.fi/">here</a>.</p>
+</body></html>
+
+
+
+
+
+
+A better approach would be to create a dockerfile that extends the ubuntu image and installs curl.
